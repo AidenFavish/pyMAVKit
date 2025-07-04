@@ -34,8 +34,9 @@ class Receiver:
                     wait_msg.update_data(msg)
 
             # Update listeners
-            if msg.name in self.listeners:
-                self.listeners[msg.name].update_data(msg)
+            for listener in self.listeners:
+                if listener.name == msg.name:
+                    listener.update_data(msg)
 
             # Manage message history
             if msg.name in self.history_dict:
@@ -52,6 +53,5 @@ class Receiver:
         self.waiting.append(msg)
         while msg.timestamp == 0:
             time.sleep(.001)
+        self.waiting.remove(msg)
         return msg
-        
-

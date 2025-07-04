@@ -14,5 +14,5 @@ class MAVMessage:
         for key, value in vars(other).items():
             setattr(self, key, value)
 
-    def get_msg(self, system_id, component_id):
+    def get_mav_msg(self, system_id, component_id):
         pass

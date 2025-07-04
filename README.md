@@ -9,3 +9,6 @@ pip install -r requirements.txt
 
 ## How to Use
 ...
+
+## ✅ Guaranteed bug-free
+Developed entirely at Ballmer’s Peak 🏔️. No testing necessary, bugs can’t survive up here.

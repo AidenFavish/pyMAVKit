@@ -1,6 +1,6 @@
 
 class MAVMessage:
-    def __init__(self, name:str, timestamp, priority=0):
+    def __init__(self, name:str, timestamp=0, priority=0):
         self.name = name
         self.timestamp = timestamp
         self.priority = priority
@@ -14,5 +14,8 @@ class MAVMessage:
         for key, value in vars(other).items():
             setattr(self, key, value)
 
-    def get_mav_msg(self, system_id, component_id):
+    def encode(self, system_id, component_id):
+        pass
+
+    def decode(self, msg):
         pass

@@ -1,6 +1,7 @@
 import pymavlink.mavutil as utility
 import pymavlink.dialects.v20.all as dialect
 import threading
+import time
 
 from mav_protocol import MAVProtocol
 from mav_receiver import Receiver
@@ -41,5 +42,6 @@ class MAVDevice:
         while self.reading:
             msg = self.connection.recv_match(blocking=True, timeout=1)
             if msg:
-                self.receiver.queue.put(msg)
+                timestamp_ms = int(round(time.time() * 1000))
+                self.receiver.queue.put((timestamp_ms, msg))
         

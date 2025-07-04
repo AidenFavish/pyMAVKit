@@ -33,5 +33,5 @@ class Sender:
         """
         if not self._is_owned():
             raise RuntimeError("Current thread does not own the lock")
-        mav_msg = msg.get_mav_msg(self.sys_id if not system_id else system_id, self.component_id if not component_id else component_id)
+        mav_msg = msg.encode(self.sys_id if not system_id else system_id, self.component_id if not component_id else component_id)
         self.connection.mav.send(mav_msg)

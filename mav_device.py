@@ -13,8 +13,10 @@ class MAVDevice:
         self.attempt_reconnect = attempt_reconnect
         self.listeners = []
         self.receiver = Receiver(self.listeners)
-        self.connection: utility.mavudp | utility.mavserial = self._connect(device_address, baud_rate, source_system, source_component, attempt_reconnect)
+        self.connection: utility.mavudp | utility.mavserial = self._connect(device_address, baud_rate, source_system, source_component)
         self.sender = Sender(self.receiver, self.connection.target_system, self.connection.target_component, self.connection)
+
+        self.receiver.start_receiving()
 
         self.reading = True
         self.thread = threading.Thread(target=self._main_loop, daemon=True)
@@ -32,6 +34,7 @@ class MAVDevice:
 
     def add_listener(self, listener: MAVMessage) -> MAVMessage:
         self.listeners.append(listener)
+        return listener
 
     def run_protocol(self, protocol: MAVProtocol):
         self.sender.acquire()
@@ -42,6 +45,6 @@ class MAVDevice:
         while self.reading:
             msg = self.connection.recv_match(blocking=True, timeout=1)
             if msg:
-                timestamp_ms = int(round(time.time() * 1000))
+                timestamp_ms = time.time() * 1000
                 self.receiver.queue.put((timestamp_ms, msg))
         

@@ -1,1 +1,1 @@
-from mav_device import MAVDevice as MAVDevice
+from .mav_device import MAVDevice as MAVDevice

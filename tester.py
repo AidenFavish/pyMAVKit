@@ -12,8 +12,9 @@ heartbeat = device.run_protocol(HeartbeatProtocol())
 local_pos = device.add_listener(LocalPositionNED())
 fc_heartbeat = device.add_listener(Heartbeat())
 
-set_mode = device.run_protocol(SetModeProtocol(MAVMode.GUIDED))
-mode_ack = set_mode.ack_msg
+set_mode_protocol = SetModeProtocol(MAVMode.STABILIZE, target_system=1, target_component=0)
+device.run_protocol(set_mode_protocol)
+mode_ack = set_mode_protocol.ack_msg
 
 while True:
     print(time.ctime())

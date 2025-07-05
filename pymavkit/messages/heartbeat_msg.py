@@ -31,8 +31,8 @@ class Heartbeat(MAVMessage):
     def decode(self, msg):
         self.type_id = msg.type
         self.state = MAV_STATE[msg.system_status]
-        self.src_sys = msg.get_srcSystem
-        self.src_comp = msg.get_srcComponent
+        self.src_sys = msg.get_srcSystem()
+        self.src_comp = msg.get_srcComponent()
 
     def __repr__(self) -> str:
         return f"(HEARTBEAT) timestamp: {self.timestamp} ms, type: {self.type_id}, state: {self.state}, system: {self.src_sys}, component: {self.src_comp}"

@@ -43,4 +43,7 @@ class SetMode(MAVMessage):
             param6=0.0,
             param7=0.0
         )
+    
+    def __repr__(self):
+        return f"(CUSTOM_SET_MODE) timestamp: {self.timestamp}, mode: {self.mode.name}"
         

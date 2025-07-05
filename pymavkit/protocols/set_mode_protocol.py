@@ -1,6 +1,4 @@
 from pymavkit.mav_protocol import MAVProtocol
-from pymavkit.mav_sender import Sender
-from pymavkit.mav_receiver import Receiver
 from pymavkit.messages.set_mode_msg import SetMode, MAVMode
 from pymavkit.messages.command_ack_msg import CommandAck
 

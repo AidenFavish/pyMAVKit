@@ -20,12 +20,15 @@ class MAVDevice:
         self.reading = True
         self.thread = threading.Thread(target=self._main_loop, daemon=True)
         self.thread.start()
+        time.sleep(1)
     
     def _connect(self, device_address:str, baud_rate:int, source_system:int, source_component:int) -> utility.mavudp | utility.mavserial:
         """
         device_address follows by pymavlink standards: 'udp:127.0.0.1:14550' or '/dev/ttyACM0'
         """
         connection = utility.mavlink_connection(device=device_address, baud=baud_rate, source_system=source_system, source_component=source_component)
+        if type(connection) != utility.mavudp and type(connection) != utility.mavserial:
+            raise RuntimeError("Connection is not udp or serial.")
         return connection
 
     def stop_reading(self):

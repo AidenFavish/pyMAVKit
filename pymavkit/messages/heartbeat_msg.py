@@ -31,4 +31,4 @@ class Heartbeat(MAVMessage):
         self.state = MAV_STATE[msg.system_status]
 
     def __repr__(self) -> str:
-        return f"(HEARTBEAT) timestamp: {self.timestamp} ms type: {self.type_id}, state: {self.state}"
+        return f"(HEARTBEAT) timestamp: {self.timestamp} ms, type: {self.type_id}, state: {self.state}"

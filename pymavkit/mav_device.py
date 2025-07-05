@@ -1,5 +1,4 @@
 import pymavlink.mavutil as utility
-import pymavlink.dialects.v20.all as dialect
 import threading
 import time
 
@@ -36,10 +35,11 @@ class MAVDevice:
         self.listeners.append(listener)
         return listener
 
-    def run_protocol(self, protocol: MAVProtocol):
+    def run_protocol(self, protocol: MAVProtocol) -> MAVProtocol:
         self.sender.acquire()
         protocol.run(self.sender, self.receiver)
         self.sender.release()
+        return protocol
 
     def _main_loop(self):
         while self.reading:

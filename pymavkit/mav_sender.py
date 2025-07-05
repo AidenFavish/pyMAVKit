@@ -1,4 +1,5 @@
 import threading
+import time
 
 from pymavkit.mav_message import MAVMessage
 from pymavkit.mav_receiver import Receiver
@@ -11,6 +12,9 @@ class Sender:
         self.connection = connection
         self._lock = threading.Lock()
         self._owner = None
+        self.repeating_msgs: list[tuple[MAVMessage, int|None, int|None]] = []
+        self._thread = threading.Thread(target=self.repeat_loop, daemon=True)
+        self._thread.start()
 
     def acquire(self):
         self._lock.acquire()
@@ -35,3 +39,16 @@ class Sender:
             raise RuntimeError("Current thread does not own the lock")
         mav_msg = msg.encode(self.sys_id if not system_id else system_id, self.component_id if not component_id else component_id)
         self.connection.mav.send(mav_msg)
+        msg.timestamp = time.time() * 1000
+        if msg.repeat_period != 0.0:
+            self.repeating_msgs.append((msg, system_id, component_id))
+
+    def repeat_loop(self):
+        while True:
+            for payload in self.repeating_msgs:
+                msg, sys_id, comp_id = payload
+                if time.time() * 1000 - msg.timestamp > msg.repeat_period:
+                    self.acquire()
+                    self.send_msg(msg, sys_id, comp_id)
+                    self.release()    
+            time.sleep(.001)

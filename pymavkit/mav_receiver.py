@@ -33,12 +33,14 @@ class Receiver:
                 if wait_msg.name == msg_name:
                     wait_msg.timestamp = timestamp_ms
                     wait_msg.decode(msg)
+                    wait_msg.process()
 
             # Update listeners
             for listener in self.listeners:
                 if listener.name == msg_name:
                     listener.timestamp = timestamp_ms
                     listener.decode(msg)
+                    listener.process()
 
             # Manage message history
             if msg_name in self.history_dict:
@@ -52,8 +54,9 @@ class Receiver:
                 self.history_dict[msg_name] = [(timestamp_ms, msg)]
 
     def wait_for_msg(self, msg: MAVMessage):
+        msg.timestamp = 0.0
         self.waiting.append(msg)
-        while msg.timestamp == 0:
+        while msg.timestamp == 0.0:
             time.sleep(.001)
         self.waiting.remove(msg)
         return msg

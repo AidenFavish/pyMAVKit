@@ -4,12 +4,16 @@ from pymavkit import MAVDevice
 from pymavkit import Heartbeat
 from pymavkit.protocols.heartbeat_protocol import HeartbeatProtocol
 from pymavkit.messages.local_position_ned_msg import LocalPositionNED
+from pymavkit.protocols.set_mode_protocol import MAVMode, SetModeProtocol
 
 device = MAVDevice("udp:127.0.0.1:14550")
 
 heartbeat = device.run_protocol(HeartbeatProtocol())
 local_pos = device.add_listener(LocalPositionNED())
 fc_heartbeat = device.add_listener(Heartbeat())
+
+set_mode = device.run_protocol(SetModeProtocol(MAVMode.GUIDED))
+mode_ack = set_mode.ack_msg
 
 while True:
     print(time.ctime())
@@ -23,5 +27,5 @@ while True:
         else:
             freq = -1
         print(f"{msg_name:<25} stored messages: {len(payload):<10} freq: {freq:.4f} hz")
-    print(f"{heartbeat}\n{local_pos}\n{fc_heartbeat}", flush=True)
+    print(f"{heartbeat}\n{local_pos}\n{fc_heartbeat}\n{mode_ack}", flush=True)
     time.sleep(1)

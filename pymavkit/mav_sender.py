@@ -1,7 +1,7 @@
 import threading
 
-from mav_message import MAVMessage
-from mav_receiver import Receiver
+from pymavkit.mav_message import MAVMessage
+from pymavkit.mav_receiver import Receiver
 
 class Sender:
     def __init__(self, receiver: Receiver, sys_id: int, component_id: int, connection):

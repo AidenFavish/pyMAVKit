@@ -3,10 +3,10 @@ import pymavlink.dialects.v20.all as dialect
 import threading
 import time
 
-from .mav_protocol import MAVProtocol
-from .mav_receiver import Receiver
-from .mav_sender import Sender
-from .mav_message import MAVMessage
+from pymavkit.mav_protocol import MAVProtocol
+from pymavkit.mav_receiver import Receiver
+from pymavkit.mav_sender import Sender
+from pymavkit.mav_message import MAVMessage
 
 class MAVDevice:
     def __init__(self, device_address:str, baud_rate:int=115200, source_system:int=255, source_component:int=0, attempt_reconnect:bool=True):

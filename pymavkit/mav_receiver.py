@@ -2,7 +2,7 @@ import queue
 import threading
 import time
 
-from mav_message import MAVMessage
+from pymavkit.mav_message import MAVMessage
 
 MAX_QUEUE_SIZE = 500
 HISTORY_SIZE = 10

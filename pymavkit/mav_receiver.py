@@ -37,7 +37,7 @@ class Receiver:
 
             # Update listeners
             for listener in self.listeners:
-                if listener.name == msg_name:
+                if listener.name == msg_name and listener.timestamp != timestamp_ms:
                     listener.timestamp = timestamp_ms
                     listener.decode(msg)
                     listener.process()

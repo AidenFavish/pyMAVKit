@@ -3,11 +3,6 @@ import time
 from pymavkit import MAVDevice
 import pymavkit.messages as messages
 import pymavkit.protocols as protocols
-from pymavkit.messages import Heartbeat
-from pymavkit.protocols.heartbeat_protocol import HeartbeatProtocol
-from pymavkit.messages.local_position_ned_msg import LocalPositionNED
-from pymavkit.protocols.set_mode_protocol import MAVMode, SetModeProtocol
-from pymavkit.protocols.status_text_protocol import StatusTextProtocol, MAVSeverity
 
 device = MAVDevice("udp:127.0.0.1:14445")
 

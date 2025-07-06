@@ -1,19 +1,31 @@
 import pymavlink.dialects.v20.all as dialect
+from enum import Enum
 
 from pymavkit.mav_message import MAVMessage
 
-MAV_RESULT = ["ACCEPTED", "TRY AGAIN LATER", "DENIED", "UNSUPPORTED", "FAILED", "IN PROGRESS", 
-              "CANCELLED", "COMMAND LONG ONLY", "COMMAND INT ONLY", "UNSUPPORTED MAV FRAME"]
+
+class MAVResult(Enum):
+    UNKNOWN = -1
+    ACCEPTED = 0
+    TRY_AGAIN_LATER = 1
+    DENIED = 2
+    UNSUPPORTED = 3
+    FAILED = 4
+    IN_PROGRESS = 5
+    CANCELLED = 6
+    COMMAND_LONG_ONLY = 7
+    COMMAND_INT_ONLY = 8
+    UNSUPPORTED_MAV_FRAME = 9
 
 class CommandAck(MAVMessage):
     def __init__(self):
         super().__init__("COMMAND_ACK")
         self.command_id = -1
-        self.result = "UNKNOWN"
+        self.result = MAVResult.UNKNOWN
 
     def decode(self, msg):
         self.command_id = msg.command
-        self.result = MAV_RESULT[msg.result]
+        self.result = MAVResult(msg.result)
 
     def __repr__(self):
-        return f"(COMMAND_ACK) timestamp: {self.timestamp} ms, command_id: {self.command_id}, result: {self.result}"
+        return f"(COMMAND_ACK) timestamp: {self.timestamp} ms, command_id: {self.command_id}, result: {self.result.name}"

@@ -1,4 +1,5 @@
 import pymavlink.dialects.v20.all as dialect
+from enum import Enum
 
 from pymavkit.mav_message import MAVMessage
 
@@ -7,8 +8,17 @@ MAV_AUTOPILOT_INVALID = 8  # Not a valid autopilot, e.g. a GCS
 MAV_MODE_CUSTOM = 0
 NO_FLAGS = 0
 
-MAV_STATE = ["UNINITIALIZED", "BOOTING UP", "CALIBRATING", "STANDBY", "ACTIVE", "CRITICAL", "EMERGENCY", "POWEROFF", "FLIGHT TERMINATION"]
-
+class MAVState(Enum):
+    UNKNOWN = -1
+    UNINITIALIZED = 0
+    BOOTING_UP = 1
+    CALIBRATING = 2
+    STANDBY = 3
+    ACTIVE = 4
+    CRITICAL = 5
+    EMERGENCY = 6
+    POWEROFF = 7
+    FLIGHT_TERMINATION = 8
 
 class Heartbeat(MAVMessage):
     def __init__(self):
@@ -24,15 +34,15 @@ class Heartbeat(MAVMessage):
             autopilot=MAV_AUTOPILOT_INVALID, 
             base_mode=MAV_MODE_CUSTOM, 
             custom_mode=NO_FLAGS, 
-            system_status=MAV_STATE.index("UNINITIALIZED"), 
+            system_status=MAVState.UNINITIALIZED.value, 
             mavlink_version=2
         )
 
     def decode(self, msg):
         self.type_id = msg.type
-        self.state = MAV_STATE[msg.system_status]
+        self.state = MAVState(msg.system_status)
         self.src_sys = msg.get_srcSystem()
         self.src_comp = msg.get_srcComponent()
 
     def __repr__(self) -> str:
-        return f"(HEARTBEAT) timestamp: {self.timestamp} ms, type: {self.type_id}, state: {self.state}, system: {self.src_sys}, component: {self.src_comp}"
+        return f"(HEARTBEAT) timestamp: {self.timestamp} ms, type: {self.type_id}, state: {self.state.name}, system: {self.src_sys}, component: {self.src_comp}"

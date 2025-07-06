@@ -53,10 +53,11 @@ class Receiver:
                 # Brand new message type
                 self.history_dict[msg_name] = [(timestamp_ms, msg)]
 
-    def wait_for_msg(self, msg: MAVMessage):
+    def wait_for_msg(self, msg: MAVMessage, timeout_seconds:float=-1.0):
+        timeout_timer = time.time()
         msg.timestamp = 0.0
         self.waiting.append(msg)
-        while msg.timestamp == 0.0:
+        while msg.timestamp == 0.0 and (timeout_seconds < 0 or time.time() - timeout_timer < timeout_seconds):
             time.sleep(.001)
         self.waiting.remove(msg)
         return msg

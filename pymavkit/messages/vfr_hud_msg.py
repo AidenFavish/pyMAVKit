@@ -3,7 +3,7 @@ import pymavlink.dialects.v20.all as dialect
 from pymavkit.mav_message import MAVMessage
 
 
-class GlobalPosition(MAVMessage):
+class VFRHUD(MAVMessage):
     def __init__(self):
         super().__init__("VFR_HUD")
         self.airspeed = 0.0

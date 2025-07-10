@@ -7,3 +7,5 @@ from pymavkit.messages.set_mode_msg import SetMode as SetMode
 from pymavkit.messages.set_mode_msg import MAVMode as MAVMode
 from pymavkit.messages.status_text_msg import StatusText as StatusText
 from pymavkit.messages.status_text_msg import MAVSeverity as MAVSeverity
+from pymavkit.messages.vfr_hud_msg import VFRHUD as VFRHUD
+from pymavkit.messages.global_position_msg import GlobalPosition as GlobalPosition

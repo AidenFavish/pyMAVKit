@@ -1,5 +1,6 @@
 import pymavlink.dialects.v20.all as dialect
 from enum import Enum
+from typing import Any, Callable
 
 from pymavkit.mav_message import MAVMessage
 
@@ -21,8 +22,8 @@ class MAVState(Enum):
     FLIGHT_TERMINATION = 8
 
 class Heartbeat(MAVMessage):
-    def __init__(self):
-        super().__init__("HEARTBEAT", repeat_period=1.0)
+    def __init__(self, callback_func: Callable[[Any], None] = lambda x: None):
+        super().__init__("HEARTBEAT", repeat_period=1.0, callback_func=callback_func)
         self.type_id = -1
         self.state = "UNKNOWN"
         self.src_sys = -1

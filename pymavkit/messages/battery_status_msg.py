@@ -26,7 +26,7 @@ class BatteryStatus(MAVMessage):
         self.bat_func = BatteryFunction(-1)
         self.bat_type = BatteryType(-1)
         self.temp = -1
-        self.voltages = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+        self.voltages = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
         self.current = -1
         self.current_consumed = -1
         self.energy_consumed = -1

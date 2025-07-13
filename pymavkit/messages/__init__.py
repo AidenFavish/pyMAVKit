@@ -12,3 +12,5 @@ from pymavkit.messages.global_position_msg import GlobalPosition as GlobalPositi
 from pymavkit.messages.battery_status_msg import BatteryStatus as BatteryStatus
 from pymavkit.messages.battery_status_msg import BatteryFunction as BatteryFunction
 from pymavkit.messages.battery_status_msg import BatteryType as BatteryType
+from pymavkit.messages.gps_raw_int_msg import GPSRaw as GPSRaw
+from pymavkit.messages.gps_raw_int_msg import FixType as FixType

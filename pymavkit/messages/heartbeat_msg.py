@@ -26,6 +26,7 @@ class Heartbeat(MAVMessage):
         super().__init__("HEARTBEAT", repeat_period=1.0, callback_func=callback_func)
         self.type_id = -1
         self.state = "UNKNOWN"
+        self.mask = 0
         self.src_sys = -1
         self.src_comp = -1
 
@@ -38,12 +39,16 @@ class Heartbeat(MAVMessage):
             system_status=MAVState.UNINITIALIZED.value, 
             mavlink_version=2
         )
+    
+    def isArmed(self) -> bool:
+        return self.mask >> 7
 
     def decode(self, msg):
         self.type_id = msg.type
         self.state = MAVState(msg.system_status)
         self.src_sys = msg.get_srcSystem()
         self.src_comp = msg.get_srcComponent()
+        self.mask = msg.base_mode
 
     def __repr__(self) -> str:
         return f"(HEARTBEAT) timestamp: {self.timestamp} ms, type: {self.type_id}, state: {self.state.name}, system: {self.src_sys}, component: {self.src_comp}"

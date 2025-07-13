@@ -9,4 +9,6 @@ from pymavkit.messages.status_text_msg import StatusText as StatusText
 from pymavkit.messages.status_text_msg import MAVSeverity as MAVSeverity
 from pymavkit.messages.vfr_hud_msg import VFRHUD as VFRHUD
 from pymavkit.messages.global_position_msg import GlobalPosition as GlobalPosition
-from pymavkit.messages.battery_status_msg import BatteryStatus, BatteryFunction, BatteryType
+from pymavkit.messages.battery_status_msg import BatteryStatus as BatteryStatus
+from pymavkit.messages.battery_status_msg import BatteryFunction as BatteryFunction
+from pymavkit.messages.battery_status_msg import BatteryType as BatteryType

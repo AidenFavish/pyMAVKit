@@ -21,6 +21,35 @@ class MAVState(Enum):
     POWEROFF = 7
     FLIGHT_TERMINATION = 8
 
+class FlightMode(Enum):
+    UNKNOWN = -1
+    STABILIZE = 0
+    ACRO = 1
+    ALTHOLD = 2
+    AUTO = 3
+    GUIDED = 4
+    LOITER = 5
+    RTL = 6
+    CIRCLE = 7
+    LAND = 9
+    DRIFT = 11
+    SPORT = 13
+    FLIP = 14
+    AUTOTUNE = 15
+    POSHOLD = 16
+    BRAKE = 17
+    THROW = 18
+    AVOID_ADSB = 19
+    GUIDED_NOGPS = 20
+    SMART_RTL = 21
+    FLOWHOLD = 22
+    FOLLOW = 23
+    ZIGZAG = 24
+    SYSTEMID = 25
+    HELI_AUTOROTATE = 26
+    AUTO_RTL = 27
+    TURTLE = 28
+
 class Heartbeat(MAVMessage):
     def __init__(self, callback_func: Callable[[Any], None] = lambda x: None):
         super().__init__("HEARTBEAT", repeat_period=1.0, callback_func=callback_func)
@@ -29,6 +58,7 @@ class Heartbeat(MAVMessage):
         self.mask = 0
         self.src_sys = -1
         self.src_comp = -1
+        self.mode = FlightMode(-1)
 
     def encode(self, system_id, component_id):
         return dialect.MAVLink_heartbeat_message(
@@ -49,6 +79,7 @@ class Heartbeat(MAVMessage):
         self.src_sys = msg.get_srcSystem()
         self.src_comp = msg.get_srcComponent()
         self.mask = msg.base_mode
+        self.mode = FlightMode(msg.custom_mode)
 
     def __repr__(self) -> str:
         return f"(HEARTBEAT) timestamp: {self.timestamp} ms, type: {self.type_id}, state: {self.state.name}, system: {self.src_sys}, component: {self.src_comp}"

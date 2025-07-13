@@ -14,3 +14,4 @@ from pymavkit.messages.battery_status_msg import BatteryFunction as BatteryFunct
 from pymavkit.messages.battery_status_msg import BatteryType as BatteryType
 from pymavkit.messages.gps_raw_int_msg import GPSRaw as GPSRaw
 from pymavkit.messages.gps_raw_int_msg import FixType as FixType
+from pymavkit.messages.heartbeat_msg import FlightMode as FlightMode

@@ -15,8 +15,8 @@ class MAVSeverity(Enum):
     DEBUG = 7
 
 class StatusText(MAVMessage):
-    def __init__(self, text: str, severity: MAVSeverity):
-        super().__init__("STATUSTEXT")
+    def __init__(self, text: str, severity: MAVSeverity, cb=lambda x: None):
+        super().__init__("STATUSTEXT", callback_func=cb)
         self.text = text
         self.severity = severity
 

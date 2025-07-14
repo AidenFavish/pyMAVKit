@@ -54,7 +54,7 @@ class Heartbeat(MAVMessage):
     def __init__(self, callback_func: Callable[[Any], None] = lambda x: None):
         super().__init__("HEARTBEAT", repeat_period=1.0, callback_func=callback_func)
         self.type_id = -1
-        self.state = "UNKNOWN"
+        self.state = MAVState(-1)
         self.mask = 0
         self.src_sys = -1
         self.src_comp = -1
@@ -71,7 +71,7 @@ class Heartbeat(MAVMessage):
         )
     
     def isArmed(self) -> bool:
-        return self.mask >> 7
+        return bool(self.mask >> 7)
 
     def decode(self, msg):
         self.type_id = msg.type

@@ -2,28 +2,13 @@ import pymavlink.dialects.v20.all as dialect
 from enum import Enum
 
 from pymavkit.mav_message import MAVMessage
-
-
-class MAVMode(Enum):
-    """Common ArduPilot modes and their value."""
-    STABILIZE=0
-    ACRO=1
-    ALT_HOLD=2
-    AUTO=3
-    GUIDED=4
-    LOITER=5
-    RTL=6
-    CIRCLE=7
-    LAND=9
-    DRIFT=11
-    SPORT=13
-    FLIP=14
-    AUTO_TUNE=15
-    POS_HOLD=16
-    BRAKE=17
+from pymavkit.messages import FlightMode
 
 class SetMode(MAVMessage):
-    def __init__(self, target_system:int, target_component:int, mode:MAVMode):
+    """
+    Allows to set mode of device. Uses FlightMode defined in heartbeat_msg.
+    """
+    def __init__(self, target_system:int, target_component:int, mode:FlightMode):
         super().__init__("CUSTOM_SET_MODE")
         self.target_system = target_system
         self.target_component = target_component

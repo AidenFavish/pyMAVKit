@@ -17,10 +17,16 @@ class Sender:
         self._thread.start()
 
     def acquire(self):
+        """
+        Aquires send lock.
+        """
         self._lock.acquire()
         self._owner = threading.get_ident()
 
     def release(self):
+        """
+        Releases send lock.
+        """
         if not self._is_owned():
             raise RuntimeError("Current thread does not own the lock")
         self._owner = None
@@ -44,6 +50,9 @@ class Sender:
             self.repeating_msgs.append((msg, system_id, component_id))
 
     def repeat_loop(self):
+        """
+        Loop in charge of running repeated messages.
+        """
         while True:
             for payload in self.repeating_msgs:
                 msg, sys_id, comp_id = payload

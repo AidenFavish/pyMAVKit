@@ -20,6 +20,9 @@ class BatteryType(Enum):
     NIMH = 4
 
 class BatteryStatus(MAVMessage):
+    """
+    Reads BATTERY_STATUS function. Uses BatteryType and BatteryFunction enums accordingly.
+    """
     def __init__(self):
         super().__init__("BATTERY_STATUS")
         self.bat_id = -1

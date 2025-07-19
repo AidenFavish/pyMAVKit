@@ -18,6 +18,9 @@ class MAVResult(Enum):
     UNSUPPORTED_MAV_FRAME = 9
 
 class CommandAck(MAVMessage):
+    """
+    Command acknowledgment. Allows you to see the command id (mavlink command int) and the result (MAVResult enum).
+    """
     def __init__(self):
         super().__init__("COMMAND_ACK")
         self.command_id = -1

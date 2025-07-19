@@ -54,6 +54,9 @@ class Receiver:
                 self.history_dict[msg_name] = [(timestamp_ms, msg)]
 
     def wait_for_msg(self, msg: MAVMessage, timeout_seconds:float=-1.0):
+        """
+        Will wait for msg to occur. Once it does, will return the updated object.
+        """
         timeout_timer = time.time()
         msg.timestamp = 0.0
         self.waiting.append(msg)

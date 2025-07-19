@@ -8,6 +8,9 @@ from pymavkit.mav_sender import Sender
 from pymavkit.mav_message import MAVMessage
 
 class MAVDevice:
+    """
+    Primary class for pyMAVKit. Manages drone connection, sending, and receiving mavlink messages.
+    """
     def __init__(self, device_address:str, baud_rate:int=115200, source_system:int=255, source_component:int=0, attempt_reconnect:bool=True):
         self.attempt_reconnect = attempt_reconnect
         self.listeners = []
@@ -32,13 +35,22 @@ class MAVDevice:
         return connection
 
     def stop_reading(self):
+        """
+        Will stop the thread that reads messages.
+        """
         self.reading = False
 
     def add_listener(self, listener: MAVMessage) -> MAVMessage:
+        """
+        Pass in a MAVMessage to listen for. Will save occurences of this message and update this message object accordingly.
+        """
         self.listeners.append(listener)
         return listener
 
     def run_protocol(self, protocol: MAVProtocol) -> MAVProtocol:
+        """
+        Runs a MAVProtocol object that sends and receives messages to complete the protcol.
+        """
         self.sender.acquire()
         protocol.run(self.sender, self.receiver)
         self.sender.release()

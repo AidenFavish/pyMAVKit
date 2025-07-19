@@ -3,6 +3,9 @@ from pymavkit.messages.status_text_msg import MAVSeverity, StatusText
 
 
 class StatusTextProtocol(MAVProtocol):
+    """
+    Sends status text with MAVSeverity specified for diferent msg destinations. Note msg must be < 30 characters.
+    """
     def __init__(self, text:str, severity:MAVSeverity):
         super().__init__()
         self.text = text

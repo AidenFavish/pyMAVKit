@@ -3,6 +3,9 @@ from pymavkit.messages.set_mode_msg import SetMode, MAVMode
 from pymavkit.messages.command_ack_msg import CommandAck
 
 class SetModeProtocol(MAVProtocol):
+    """
+    Allows to set device mode. Use MAVMode to specify the device mode. Sends change mode then waits for ack.
+    """
     def __init__(self, mode: MAVMode, target_system: int = 1, target_component: int = 0):
         super().__init__()
         self.mode = mode

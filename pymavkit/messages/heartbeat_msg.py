@@ -51,6 +51,9 @@ class FlightMode(Enum):
     TURTLE = 28
 
 class Heartbeat(MAVMessage):
+    """
+    Heartbeat message to send and receive heartbeats.
+    """
     def __init__(self, callback_func: Callable[[Any], None] = lambda x: None):
         super().__init__("HEARTBEAT", repeat_period=1.0, callback_func=callback_func)
         self.type_id = -1

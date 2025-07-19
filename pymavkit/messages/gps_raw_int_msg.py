@@ -16,6 +16,9 @@ class FixType(Enum):
     PPP_3D = 8
 
 class GPSRaw(MAVMessage):
+    """
+    Message to read gps info like number of sats and fix status (FixType enum).
+    """
     def __init__(self):
         super().__init__("GPS_RAW_INT")
         self.fix_type = FixType(0)

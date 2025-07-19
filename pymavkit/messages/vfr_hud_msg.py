@@ -4,6 +4,10 @@ from pymavkit.mav_message import MAVMessage
 
 
 class VFRHUD(MAVMessage):
+    """
+    General flight info/telemetry. 
+    Units are in m/s for speeds, percentage for throttle, meters for altitude, and degrees * 100 integer for heading.
+    """
     def __init__(self):
         super().__init__("VFR_HUD")
         self.airspeed = 0.0

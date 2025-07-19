@@ -4,6 +4,10 @@ from pymavkit.mav_message import MAVMessage
 
 
 class LocalPositionNED(MAVMessage):
+    """
+    Gets the local position in NED frame. Origin is at ardupilot origin which is often at first gps fix. 
+    In meters for distances and m/s for velocities.
+    """
     def __init__(self):
         super().__init__("LOCAL_POSITION_NED")
         self.time_boot_ms = -1

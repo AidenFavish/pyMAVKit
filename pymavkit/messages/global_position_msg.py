@@ -4,6 +4,9 @@ from pymavkit.mav_message import MAVMessage
 
 
 class GlobalPosition(MAVMessage):
+    """
+    Reads global position. Note altitude is in meters, speed is in meters/second, and heading is in degrees.
+    """
     def __init__(self):
         super().__init__("GLOBAL_POSITION_INT")
         self.time_boot_ms = -1

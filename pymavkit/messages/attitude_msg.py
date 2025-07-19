@@ -4,6 +4,9 @@ from pymavkit.mav_message import MAVMessage
 
 
 class Attitude(MAVMessage):
+    """
+    Reads ATTITUDE mavlink message. only reads pitch and roll.
+    """
     def __init__(self):
         super().__init__("ATTITUDE")
         self.pitch = 0.0

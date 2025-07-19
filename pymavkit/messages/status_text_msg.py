@@ -15,6 +15,9 @@ class MAVSeverity(Enum):
     DEBUG = 7
 
 class StatusText(MAVMessage):
+    """
+    Message that corresponds to the STATUSTEXT message. Optional callback to be executed on receiving status text.
+    """
     def __init__(self, text: str, severity: MAVSeverity, cb=lambda x: None):
         super().__init__("STATUSTEXT", callback_func=cb)
         self.text = text

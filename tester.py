@@ -18,6 +18,11 @@ set_mode_protocol = protocols.SetModeProtocol(messages.FlightMode.GUIDED, target
 device.run_protocol(set_mode_protocol)
 mode_ack = set_mode_protocol.ack_msg
 
+arm = device.run_protocol(protocols.ArmProtocol())
+
 takeoff = device.run_protocol(protocols.TakeoffProtocol(20.0, 2.0))
 
 setpoint = device.run_protocol(protocols.LocalSetpointProtocol(local_pos, waypoints, 1.0, boot_time_ms))
+
+set_mode_protocol.mode = messages.FlightMode.RTL
+device.run_protocol(set_mode_protocol)

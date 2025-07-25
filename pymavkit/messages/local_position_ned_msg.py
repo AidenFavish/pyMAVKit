@@ -27,7 +27,7 @@ class LocalPositionNED(MAVMessage):
         self.vy = msg.vy
         self.vz = msg.vz
 
-    def get_pos(self):
+    def get_pos(self) -> tuple[float, float, float]:
         return (self.x, self.y, self.z)
     
     def get_vel(self):

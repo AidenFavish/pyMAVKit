@@ -2,3 +2,4 @@ from pymavkit.protocols.heartbeat_protocol import HeartbeatProtocol as Heartbeat
 from pymavkit.protocols.set_mode_protocol import SetModeProtocol as SetModeProtocol
 from pymavkit.protocols.status_text_protocol import StatusTextProtocol as StatusTextProtocol
 from pymavkit.protocols.takeoff_protocol import TakeoffProtocol as TakeoffProtocol
+from pymavkit.protocols.local_setpoint_protocol import LocalSetpointProtocol as LocalSetpointProtocol

@@ -4,6 +4,8 @@ from pymavkit.messages import Takeoff, CommandAck
 class TakeoffProtocol(MAVProtocol):
     """
     Allows to set takeoff to altitude at certain rate. All in local frame meters and m/s.
+    Must be in guided mode.
+    Ascent rate < 0 uses WPNAV_SPEED_DN
     """
     def __init__(self, altitude: float, ascent_rate: float, target_system: int = 1, target_component: int = 0):
         super().__init__()

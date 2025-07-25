@@ -4,20 +4,20 @@ from pymavkit import MAVDevice
 import pymavkit.messages as messages
 import pymavkit.protocols as protocols
 
+waypoints = []
+
 device = MAVDevice("udp:127.0.0.1:14445")
+
+boot_time_ms = int(time.time() * 1000)
 
 heartbeat = device.run_protocol(protocols.HeartbeatProtocol())
 local_pos = device.add_listener(messages.LocalPositionNED())
 fc_heartbeat = device.add_listener(messages.Heartbeat())
 
-set_mode_protocol = protocols.SetModeProtocol(messages.MAVMode.STABILIZE, target_system=1, target_component=1)
+set_mode_protocol = protocols.SetModeProtocol(messages.FlightMode.GUIDED, target_system=1, target_component=1)
 device.run_protocol(set_mode_protocol)
 mode_ack = set_mode_protocol.ack_msg
 
-status_text = device.run_protocol(protocols.StatusTextProtocol("PYMAVKit starting...", messages.MAVSeverity.NOTICE))
+takeoff = device.run_protocol(protocols.TakeoffProtocol(20.0, 2.0))
 
-while True:
-    print(time.ctime())
-    test_info = device.run_protocol(protocols.StatusTextProtocol("blud...", messages.MAVSeverity.INFO))
-    print(f"{heartbeat}\n{local_pos}\n{fc_heartbeat}\n", flush=True)
-    time.sleep(1)
+setpoint = device.run_protocol(protocols.LocalSetpointProtocol(local_pos, waypoints, 1.0, boot_time_ms))

@@ -4,7 +4,9 @@ from pymavkit import MAVDevice
 import pymavkit.messages as messages
 import pymavkit.protocols as protocols
 
-waypoints = []
+#  33.02101538740278, -117.10290244624352
+
+waypoints = [(10.0, 0.0, 25.0), (0.0, 10.0, 25.0), (-10.0, 0.0, 25.0)]
 
 device = MAVDevice("udp:127.0.0.1:14445")
 

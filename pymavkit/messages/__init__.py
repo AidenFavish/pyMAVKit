@@ -15,3 +15,5 @@ from pymavkit.messages.gps_raw_int_msg import GPSRaw as GPSRaw
 from pymavkit.messages.gps_raw_int_msg import FixType as FixType
 from pymavkit.messages.heartbeat_msg import FlightMode as FlightMode
 from pymavkit.messages.attitude_msg import Attitude as Attitude
+from pymavkit.messages.takeoff_msg import Takeoff as Takeoff
+from pymavkit.messages.takeoff_msg import MAVFrame as MAVFrame

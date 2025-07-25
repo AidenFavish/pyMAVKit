@@ -15,15 +15,19 @@ boot_time_ms = int(time.time() * 1000)
 heartbeat = device.run_protocol(protocols.HeartbeatProtocol())
 local_pos = messages.LocalPositionNED()
 device.add_listener(local_pos)
-fc_heartbeat = device.add_listener(messages.Heartbeat())
+fc_heartbeat = messages.Heartbeat()
+device.add_listener(fc_heartbeat)
 
 set_mode_protocol = protocols.SetModeProtocol(messages.FlightMode.GUIDED, target_system=1, target_component=1)
 device.run_protocol(set_mode_protocol)
-mode_ack = set_mode_protocol.ack_msg
+print(f"Mode ack: {set_mode_protocol.ack_msg}")
 
 arm = device.run_protocol(protocols.ArmProtocol())
+print(f"armed: {fc_heartbeat.isArmed()}")
 
-takeoff = device.run_protocol(protocols.TakeoffProtocol(20.0))
+takeoff = protocols.TakeoffProtocol(20.0)
+device.run_protocol(takeoff)
+print(f"takeoff ack: {takeoff.ack_msg}")
 
 time.sleep(15)
 

@@ -29,11 +29,15 @@ class Receiver:
             msg_name = msg.get_type()
 
             # Check if waiting for this message
+            found = []
             for wait_msg in self.waiting:
                 if wait_msg.name == msg_name:
                     wait_msg.timestamp = timestamp_ms
                     wait_msg.decode(msg)
                     wait_msg.process()
+                    found.append(wait_msg)
+            for m in found:
+                self.waiting.remove(m)
 
             # Update listeners
             for listener in self.listeners:
@@ -53,14 +57,38 @@ class Receiver:
                 # Brand new message type
                 self.history_dict[msg_name] = [(timestamp_ms, msg)]
 
-    def wait_for_msg(self, msg: MAVMessage, timeout_seconds:float=-1.0):
+    def wait_for_msg(self, msg: MAVMessage, timeout_seconds:float=-1.0, blocking=True):
         """
         Will wait for msg to occur. Once it does, will return the updated object.
+        If blocking will return a FutureMsg.
         """
+        if not blocking:
+            thread = threading.Thread(target=lambda: self.wait_for_msg(msg), daemon=True)
+            thread.start()
+            return FutureMsg(msg, thread)
+
         timeout_timer = time.time()
         msg.timestamp = 0.0
         self.waiting.append(msg)
         while msg.timestamp == 0.0 and (timeout_seconds < 0 or time.time() - timeout_timer < timeout_seconds):
             time.sleep(.001)
-        self.waiting.remove(msg)
+        
+        try:
+            self.waiting.remove(msg)
+        except:
+            pass
+
         return msg
+
+class FutureMsg:
+    def __init__(self, msg, thread):
+        self.msg = msg
+        self.thread: threading.Thread = thread
+
+    def wait_until_finished(self):
+        while self.thread.is_alive():
+            time.sleep(0.05)
+        return self.msg
+
+    def is_finished(self) -> bool:
+        return self.thread.is_alive()

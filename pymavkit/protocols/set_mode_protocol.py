@@ -1,5 +1,5 @@
 from pymavkit.mav_protocol import MAVProtocol
-from pymavkit.messages.set_mode_msg import SetMode, FlightMode
+from pymavkit.messages import SetMode, FlightMode
 from pymavkit.messages.command_ack_msg import CommandAck
 
 class SetModeProtocol(MAVProtocol):
@@ -16,5 +16,7 @@ class SetModeProtocol(MAVProtocol):
         self.ack_msg = CommandAck()
 
     def run(self, sender, receiver):
+        future_ack = receiver.wait_for_msg(self.ack_msg, blocking=False)
         sender.send_msg(self.mode_msg)
-        receiver.wait_for_msg(self.ack_msg)
+        future_ack.wait_until_finished()
+        

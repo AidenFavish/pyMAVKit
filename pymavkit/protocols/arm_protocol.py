@@ -11,9 +11,10 @@ class ArmProtocol(MAVProtocol):
         self.target_system = target_system
         self.target_component = target_component
 
-        self.arm_msg = Arm()
+        self.arm_msg = Arm(self.target_system, self.target_component)
         self.ack_msg = CommandAck()
 
     def run(self, sender, receiver):
+        future_ack = receiver.wait_for_msg(self.ack_msg, blocking=False)
         sender.send_msg(self.arm_msg)
-        receiver.wait_for_msg(self.ack_msg)
+        future_ack.wait_until_finished()

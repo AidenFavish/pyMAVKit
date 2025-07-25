@@ -1,5 +1,5 @@
 import pymavlink.dialects.v20.all as dialect
-
+import time
 from pymavkit.mav_message import MAVMessage
 
 class SetpointLocal(MAVMessage):
@@ -19,23 +19,24 @@ class SetpointLocal(MAVMessage):
 
     def encode(self, system_id, component_id):
         return dialect.MAVLink_set_position_target_local_ned_message(
-            time_boot_ms=self.boot_time_ms,
-            target_system=self.target_system,
-            target_component=self.target_component,
-            coordinate_frame=1,  # MAV_FRAME_LOCAL_NED
-            type_mask=4088,  # ignore all but xyz
-            x=self.x,
-            y=self.y,
-            z=self.z,
-            vx=0.0,
-            vy=0.0,
-            vz=0.0,
-            afx=0.0,
-            afy=0.0,
-            afz=0.0,
-            yaw=0.0,
-            yaw_rate=0.0
+            time_boot_ms=int(time.time() * 1000 - self.boot_time_ms),
+            target_system=int(self.target_system),
+            target_component=int(self.target_component),
+            coordinate_frame=int(1),  # MAV_FRAME_LOCAL_NED
+            type_mask=int(4088),  # ignore all but x/y/z position
+            x=float(self.x),
+            y=float(self.y),
+            z=float(self.z),
+            vx=float(0.0),
+            vy=float(0.0),
+            vz=float(0.0),
+            afx=float(0.0),
+            afy=float(0.0),
+            afz=float(0.0),
+            yaw=float(0.0),
+            yaw_rate=float(0.0)
         )
+
     
     def load(self, target: tuple[float, float, float]):
         self.x = target[0]

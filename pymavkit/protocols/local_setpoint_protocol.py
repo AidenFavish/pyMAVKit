@@ -26,8 +26,7 @@ class LocalSetpointProtocol(MAVProtocol):
             while self.dist(waypoint, self.current_pos.get_pos()) > self.radius:
                 self.setpoint_msg.load(waypoint)
                 sender.send_msg(self.setpoint_msg)
-
-                time.sleep(0.25)
+                time.sleep(1)
 
     @staticmethod
     def dist(first: tuple[float, float, float], second: tuple[float, float, float]) -> float:

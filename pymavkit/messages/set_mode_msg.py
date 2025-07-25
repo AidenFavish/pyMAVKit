@@ -2,7 +2,7 @@ import pymavlink.dialects.v20.all as dialect
 from enum import Enum
 
 from pymavkit.mav_message import MAVMessage
-from pymavkit.messages import FlightMode
+from pymavkit.messages.heartbeat_msg import FlightMode
 
 class SetMode(MAVMessage):
     """

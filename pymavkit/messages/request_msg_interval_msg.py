@@ -25,7 +25,7 @@ class RequestMessageInterval(MAVMessage):
             command=511,  # MAV_CMD_SET_MESSAGE_INTERVAL (511)
             confirmation=0,
             param1=float(self.msg_id.value),
-            param2=0.0,
+            param2=250000.0,
             param3=0.0,
             param4=0.0,
             param5=0.0,

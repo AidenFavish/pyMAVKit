@@ -27,6 +27,7 @@ class LocalSetpointProtocol(MAVProtocol):
                 self.setpoint_msg.load(waypoint)
                 sender.send_msg(self.setpoint_msg)
                 time.sleep(1)
+            print("Waypoint complete")
 
     @staticmethod
     def dist(first: tuple[float, float, float], second: tuple[float, float, float]) -> float:

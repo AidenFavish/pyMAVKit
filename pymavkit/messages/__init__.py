@@ -19,3 +19,5 @@ from pymavkit.messages.takeoff_msg import Takeoff as Takeoff
 from pymavkit.messages.takeoff_msg import MAVFrame as MAVFrame
 from pymavkit.messages.setpoint_local_msg import SetpointLocal as SetpointLocal
 from pymavkit.messages.arm_msg import Arm as Arm
+from pymavkit.messages.request_msg_interval_msg import RequestMessageInterval as RequestMessageInterval
+from pymavkit.messages.request_msg_interval_msg import IntervalMessageID as IntervalMessageID

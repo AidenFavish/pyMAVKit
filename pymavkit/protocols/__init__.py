@@ -4,3 +4,4 @@ from pymavkit.protocols.status_text_protocol import StatusTextProtocol as Status
 from pymavkit.protocols.takeoff_protocol import TakeoffProtocol as TakeoffProtocol
 from pymavkit.protocols.local_setpoint_protocol import LocalSetpointProtocol as LocalSetpointProtocol
 from pymavkit.protocols.arm_protocol import ArmProtocol as ArmProtocol
+from pymavkit.protocols.request_msg_protocol import RequestMessageProtocol as RequestMessageProtocol

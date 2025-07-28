@@ -4,6 +4,7 @@ from enum import Enum
 from pymavkit.mav_message import MAVMessage
 
 class IntervalMessageID(Enum):
+    ATTITUDE = 30
     LOCAL_POSITION_NED = 32
     GLOBAL_POSITION_INT = 33
 

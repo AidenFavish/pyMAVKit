@@ -18,7 +18,7 @@ device.add_listener(local_pos)
 fc_heartbeat = messages.Heartbeat()
 device.add_listener(fc_heartbeat)
 
-request_pos = protocols.RequestMessageProtocol(messages.IntervalMessageID.LOCAL_POSITION_NED)
+request_pos = protocols.RequestMessageProtocol(messages.IntervalMessageID.ATTITUDE)
 device.run_protocol(request_pos)
 print(f"Msg Request Ack: {request_pos.ack_msg}")
 

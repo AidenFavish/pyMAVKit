@@ -42,7 +42,7 @@ jobs:
       - name: Run ArduCopter SITL (background)
         run: |
           ./ardupilot/Tools/autotest/sim_vehicle.py -v copter --console --map -w -l 33.7713180251761,-117.69482206241825,0.0,0.0 > sitl.log 2>&1 &
-          sleep 10
+          sleep 120
           cat sitl.log
 
       - name: Run validation script

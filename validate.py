@@ -5,7 +5,7 @@ mav = mavutil.mavlink_connection('udp:127.0.0.1:14550')
 
 # Wait for a heartbeat from the copter
 print("Waiting for heartbeat...")
-mav.wait_heartbeat()
+mav.wait_heartbeat(timeout=15)
 print(f"Heartbeat from system (system {mav.target_system} component {mav.target_component})")
 
 # Example: Request vehicle mode

@@ -35,7 +35,7 @@ jobs:
           cd ardupilot
           Tools/environment_install/install-prereqs-ubuntu.sh -y
           . ~/.profile
-          ./waf configure --board sitl
+          ./waf configure --board MatekH743
           ./waf copter
           cd ..
 

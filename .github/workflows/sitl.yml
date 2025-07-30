@@ -29,10 +29,6 @@ jobs:
         run: |
           poetry install
 
-      - name: Install pymavlink (if not in pyproject)
-        run: |
-          poetry run pip install pymavlink
-
       - name: Clone ArduPilot and build SITL
         run: |
           git clone --recursive https://github.com/ArduPilot/ardupilot.git
@@ -42,9 +38,9 @@ jobs:
 
       - name: Run ArduCopter SITL (background)
         run: |
-          cd ardupilot
-          ./build/sitl/bin/arducopter -S --model quad --home 37.7749,-122.4194,10,270 > sitl.log 2>&1 &
+          sim_vehicle.py -v copter --console --map -w -l 33.7713180251761,-117.69482206241825,0.0,0.0 > sitl.log 2>&1 &
           sleep 10
+          cat sitl.log
 
       - name: Run validation script
         run: |

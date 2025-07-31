@@ -38,6 +38,13 @@ jobs:
           ./waf configure --board MatekH743
           ./waf copter
           cd ..
+          sudo apt-get install python3-dev python3-opencv python3-wxgtk4.0 python3-pip python3-matplotlib python3-lxml python3-pygame
+          python3 -m pip install PyYAML mavproxy --user
+          sudo python3 -m pip install wxPython
+          sudo python3 -m pip install gnureadline
+          sudo python3 -m pip install billiard
+          sudo python3 -m pip install numpy pyparsing
+          sudo python3 -m pip install MAVProxy
 
       - name: Run ArduCopter SITL (background)
         run: |

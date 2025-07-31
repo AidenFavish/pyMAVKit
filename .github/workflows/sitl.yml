@@ -48,7 +48,8 @@ jobs:
 
       - name: Run ArduCopter SITL (background)
         run: |
-          ./ardupilot/Tools/autotest/sim_vehicle.py -v copter --console --map -w -l 33.7713180251761,-117.69482206241825,0.0,0.0 > sitl.log 2>&1 &
+          .ardupilot/Tools/autotest/sim_vehicle.py -v ArduCopter --model + --no-mavproxy --start --home=33.7713180251761,-117.69482206241825,0,0 > sitl.log 2>&1 &
+          sleep 10
           sleep 480
           cat sitl.log
 

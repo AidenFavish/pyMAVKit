@@ -6,12 +6,13 @@ on:
 
 jobs:
   sitl-test:
-    runs-on: labpc2
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
 
-      - name: Run Simulation
+      - name: Run Simulation (wait)
         run: |
-          sim_vehicle.py -v copter --console --map -w -l 33.7713180251761,-117.69482206241825,0.0,0.0
+          ~/sim_setup.sh
+          sleep 60
 
 

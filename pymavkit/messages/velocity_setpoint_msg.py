@@ -7,7 +7,7 @@ class SetpointVelocity(MAVMessage):
     A position setpoint in local NED frame. Measured in meters.
     Boot time ms is the time since system boot in ms.
     """
-    def __init__(self, target_system: int, target_component: int, boot_time_ms: int, vx: float, vy: float, vz: float, yaw: float):
+    def __init__(self, target_system: int, target_component: int, boot_time_ms: int, vx: float, vy: float, vz: float):
         super().__init__("CUSTOM_SETPOINT_LOCAL")
         self.target_system = target_system
         self.target_component = target_component
@@ -16,7 +16,6 @@ class SetpointVelocity(MAVMessage):
         self.vx = vx
         self.vy = vy
         self.vz= vz
-        self.yaw = yaw
 
     def encode(self, system_id, component_id):
         return dialect.MAVLink_set_position_target_local_ned_message(
@@ -34,6 +33,6 @@ class SetpointVelocity(MAVMessage):
             afx=float(0.0),
             afy=float(0.0),
             afz=float(0.0),
-            yaw=float(self.yaw),
+            yaw=float(0.0),
             yaw_rate=float(0.0)
         )

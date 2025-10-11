@@ -32,7 +32,7 @@ print(f"takeoff ack: {takeoff.ack_msg}")
 
 time.sleep(15)
 
-setpoint = device.run_protocol(protocols.OrbitProtocol(local_pos, 10.0, boot_time_ms))
+setpoint = device.run_protocol(protocols.OrbitProtocol(local_pos, 25.0, boot_time_ms))
 
 set_mode_protocol = protocols.SetModeProtocol(messages.FlightMode.RTL)
 device.run_protocol(set_mode_protocol)

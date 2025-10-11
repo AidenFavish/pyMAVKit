@@ -15,11 +15,11 @@ class OrbitProtocol(MAVProtocol):
         self.target_system = target_system
         self.target_component = target_component
 
-        self.setpoint_msg = SetpointVelocity(self.target_system, self.target_component, self.boot_time_ms, 0.0, 0.0, 0.0, 0.0)
+        self.setpoint_msg = SetpointVelocity(self.target_system, self.target_component, self.boot_time_ms, 0.0, 0.0, 0.0)
 
     def run(self, sender, receiver):
-        step = 0.25
-        angular_vel = 0.25
+        step = 0.5
+        angular_vel = 0.2
         t = 0.0
 
         while True:
@@ -32,7 +32,6 @@ class OrbitProtocol(MAVProtocol):
 
             self.setpoint_msg.vx = vx
             self.setpoint_msg.vy = vy
-            self.setpoint_msg.yaw = theta
 
             sender.send_msg(self.setpoint_msg)
             

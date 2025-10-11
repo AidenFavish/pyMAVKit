@@ -5,3 +5,4 @@ from pymavkit.protocols.takeoff_protocol import TakeoffProtocol as TakeoffProtoc
 from pymavkit.protocols.local_setpoint_protocol import LocalSetpointProtocol as LocalSetpointProtocol
 from pymavkit.protocols.arm_protocol import ArmProtocol as ArmProtocol
 from pymavkit.protocols.request_msg_protocol import RequestMessageProtocol as RequestMessageProtocol
+from pymavkit.protocols.orbit_protocol import OrbitProtocol as OrbitProtocol
